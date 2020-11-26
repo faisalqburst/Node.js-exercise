@@ -16,7 +16,7 @@ To run the project from the command line, execute the following command.
 
 ```
 npm i -g ts-node 
-ts-node src/index.ts <wineName> <minRating> <maxRating> <minPrice> <maxPrice>
+ts-node src/index.ts <wineName> <minRating> <maxRating> <minPrice> <maxPrice> <minNoRatings> <maxNoRatings>
 ```
 
 Or if we need to run it on the browser, follow the below command.
