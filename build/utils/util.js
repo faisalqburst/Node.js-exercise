@@ -1,8 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isEmptyObject = void 0;
-const isEmptyObject = (obj) => {
-    return !Object.keys(obj).length;
-};
-exports.isEmptyObject = isEmptyObject;
+exports.paramToString = void 0;
+const paramToString = (param) => (param ? param.toString() : null);
+exports.paramToString = paramToString;
 //# sourceMappingURL=util.js.map
