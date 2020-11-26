@@ -1,7 +1,6 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
-import hpp from 'hpp';
 import logger from 'morgan';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
@@ -35,15 +34,8 @@ class App {
   }
 
   private initializeMiddlewares() {
-    if (this.env) {
-      this.app.use(hpp());
-      this.app.use(logger('combined'));
-      this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
-    } else {
-      this.app.use(logger('dev'));
-      this.app.use(cors({ origin: true, credentials: true }));
-    }
-
+    this.app.use(logger('dev'));
+    this.app.use(cors({ origin: true, credentials: true }));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
