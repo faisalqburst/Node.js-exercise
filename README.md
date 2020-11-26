@@ -12,9 +12,19 @@ git clone https://github.com/faisalqburst/Node.js-exercise.git
 npm install
 ```
 
+To run the project from the command line, execute the following command.
+
+```
+npm i -g ts-node 
+ts-node src/index.ts <wineName> <minRating> <maxRating> <minPrice> <maxPrice>
+```
+
+Or if we need to run it on the browser, follow the below command.
+
 ```
 npm run start dev
 ```
+
 
 To test the application, please run the following command.
 
