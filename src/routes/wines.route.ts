@@ -1,18 +1,18 @@
 import { Router } from 'express';
-import IndexController from '../controllers/index.controller';
+import WineController from '../controllers/wines.controller';
 import Route from '../interfaces/routes.interface';
 
 class WinesRoute implements Route {
   public path = '/wines';
   public router = Router();
-  public indexController = new IndexController();
+  public winesController = new WineController();
 
   constructor() {
     this.initializeRoutes();
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.indexController.index);
+    this.router.get(`${this.path}`, this.winesController.index);
   }
 }
 
