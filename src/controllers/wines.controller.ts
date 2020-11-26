@@ -3,12 +3,12 @@ import WineService from '../services/wine.service';
 import { paramToString } from '../utils/util';
 
 class WineController {
-  public winService = new WineService();
+  public wineService = new WineService();
 
   public index = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, minPrice, maxPrice, minRating, maxRating } = req.query;
-      const winesList = await this.winService.getWinesData(
+      const winesList = await this.wineService.getWinesData(
         paramToString(name),
         parseFloat(paramToString(minRating)),
         parseFloat(paramToString(maxRating)),
