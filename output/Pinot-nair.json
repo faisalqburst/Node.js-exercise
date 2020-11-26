@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Meiomi Pinot Noir",
+    "region": "California",
+    "country": "United States",
+    "averageRating": 4.1,
+    "numberOfRatings": 123368,
+    "averagePrice": 19.99,
+    "pricePrefix": "$"
+  },
+  {
+    "title": "Elouan Pinot Noir",
+    "region": "Oregon",
+    "country": "United States",
+    "averageRating": 4,
+    "numberOfRatings": 19886,
+    "averagePrice": 19.98,
+    "pricePrefix": "$"
+  }
+]

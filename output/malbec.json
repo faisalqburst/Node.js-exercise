@@ -1,0 +1,29 @@
+[
+  {
+    "title": "Catena Malbec",
+    "region": "Mendoza",
+    "country": "Argentina",
+    "averageRating": 4,
+    "numberOfRatings": 114089,
+    "averagePrice": 19.99,
+    "pricePrefix": "$"
+  },
+  {
+    "title": "Luigi Bosca Malbec",
+    "region": "Mendoza",
+    "country": "Argentina",
+    "averageRating": 4,
+    "numberOfRatings": 75409,
+    "averagePrice": 18.79,
+    "pricePrefix": "$"
+  },
+  {
+    "title": "Rutini Cabernet - Malbec",
+    "region": "Mendoza",
+    "country": "Argentina",
+    "averageRating": 4.1,
+    "numberOfRatings": 50958,
+    "averagePrice": 24.87,
+    "pricePrefix": "$"
+  }
+]
