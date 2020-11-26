@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import WineController from '../controllers/wines.controller';
+import { GetWinesDto } from '../dtos/wines.dto';
 import Route from '../interfaces/routes.interface';
+import validationMiddleware from '../middlewares/validation.middleware';
 
 class WinesRoute implements Route {
   public path = '/wines';
@@ -12,7 +14,7 @@ class WinesRoute implements Route {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.winesController.index);
+    this.router.get(`${this.path}`, validationMiddleware(GetWinesDto, 'query', true), this.winesController.index);
   }
 }
 

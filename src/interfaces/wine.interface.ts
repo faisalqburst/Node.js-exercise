@@ -4,5 +4,6 @@ export interface Wine {
   country: string;
   averageRating: number;
   numberOfRatings: number;
+  pricePrefix: string;
   averagePrice: number;
 }
