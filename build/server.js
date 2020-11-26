@@ -7,9 +7,6 @@ require("dotenv/config");
 const app_1 = __importDefault(require("./app"));
 const index_route_1 = __importDefault(require("./routes/index.route"));
 const wines_route_1 = __importDefault(require("./routes/wines.route"));
-const app = new app_1.default([
-    new index_route_1.default(),
-    new wines_route_1.default()
-]);
+const app = new app_1.default([new index_route_1.default(), new wines_route_1.default()]);
 app.listen();
 //# sourceMappingURL=server.js.map
