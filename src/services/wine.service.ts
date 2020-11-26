@@ -7,7 +7,6 @@ class WineService {
     maxRating = isNaN(maxRating) ? Number.POSITIVE_INFINITY : maxRating;
     minPrice = isNaN(minPrice) ? 0 : minPrice;
     maxPrice = isNaN(maxPrice) ? Number.POSITIVE_INFINITY : maxPrice;
-
     return wines.filter(wine => {
       return wine.averagePrice >= minPrice && wine.averagePrice <= maxPrice && wine.averageRating >= minRating && wine.averageRating <= maxRating;
     });

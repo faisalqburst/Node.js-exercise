@@ -11,7 +11,7 @@ class ScrapData {
             try {
                 const browser = await puppeteer_1.default.launch({ headless: true });
                 const page = await browser.newPage();
-                // setting user agent because pupeteer fails when setting headerless true
+                // setting user agent because puppeteer fails when setting headerless true
                 await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36');
                 // disable loading images in the browser to speed up execution
                 await page.setRequestInterception(true);

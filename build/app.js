@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
-const hpp_1 = __importDefault(require("hpp"));
 const morgan_1 = __importDefault(require("morgan"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_jsdoc_1 = __importDefault(require("swagger-jsdoc"));
@@ -30,15 +29,8 @@ class App {
         return this.app;
     }
     initializeMiddlewares() {
-        if (this.env) {
-            this.app.use(hpp_1.default());
-            this.app.use(morgan_1.default('combined'));
-            this.app.use(cors_1.default({ origin: 'your.domain.com', credentials: true }));
-        }
-        else {
-            this.app.use(morgan_1.default('dev'));
-            this.app.use(cors_1.default({ origin: true, credentials: true }));
-        }
+        this.app.use(morgan_1.default('dev'));
+        this.app.use(cors_1.default({ origin: true, credentials: true }));
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: true }));
         this.app.use(cookie_parser_1.default());

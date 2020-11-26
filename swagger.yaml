@@ -1,20 +1,35 @@
 tags:
-- name: wines
-  description: Wines API 
+  - name: wines
+    description: Wines API
 
 paths:
-# [GET] wines
+  # [GET] wines
   /wines:
     get:
       tags:
-      - wines
+        - wines
       summary: API to get list of wine
       parameters:
-      - name: name
-        in: path
-        description: Wine name search key
-        required: true
-        type: string
+        - name: name
+          in: query
+          description: Wine name search key
+          type: string
+        - name: minPrice
+          in: query
+          description: Minimum price of wine
+          type: string
+        - name: maxPrice
+          in: query
+          description: Maximum price of wine
+          type: string
+        - name: minRating
+          in: query
+          description: Minimum rating of wine
+          type: string
+        - name: maxRating
+          in: query
+          description: Maximum rating of wine
+          type: string
       responses:
         200:
           description: 'OK'
@@ -22,5 +37,5 @@ paths:
           description: 'Server Error'
 
 schemes:
- - https
- - http
+  - https
+  - http
