@@ -7,13 +7,15 @@ class WineController {
 
   public index = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { name, minPrice, maxPrice, minRating, maxRating } = req.query;
+      const { name, minPrice, maxPrice, minRating, maxRating, minNoRatings, maxNoRatings } = req.query;
       const winesList = await this.wineService.getWinesData(
         paramToString(name),
         parseFloat(paramToString(minRating)),
         parseFloat(paramToString(maxRating)),
         parseFloat(paramToString(minPrice)),
         parseFloat(paramToString(maxPrice)),
+        parseFloat(paramToString(minNoRatings)),
+        parseFloat(paramToString(maxNoRatings)),
       );
       res.status(200).send(JSON.stringify(winesList));
     } catch (error) {

@@ -7,6 +7,8 @@ const minRating = args[3];
 const maxRating = args[4];
 const minPrice = args[5];
 const maxPrice = args[6];
+const minNoRatings = args[7];
+const maxNoRatings = args[8];
 
 (async () => {
   const winesList = await new WineService().getWinesData(
@@ -15,6 +17,8 @@ const maxPrice = args[6];
     parseFloat(paramToString(maxRating)),
     parseFloat(paramToString(minPrice)),
     parseFloat(paramToString(maxPrice)),
+    parseFloat(paramToString(minNoRatings)),
+    parseFloat(paramToString(maxNoRatings)),
   );
 
   console.log(winesList);

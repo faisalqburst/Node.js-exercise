@@ -30,6 +30,15 @@ paths:
           in: query
           description: Maximum rating of wine
           type: string
+        - name: minNoRatings
+          in: query
+          description: Minimum number of ratings
+          type: string
+        - name: maxNoRatings
+          in: query
+          description: Maximum number of ratings
+          type: string
+          
       responses:
         200:
           description: 'OK'

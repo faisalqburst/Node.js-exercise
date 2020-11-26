@@ -5,7 +5,7 @@ import { Wine } from '../interfaces/wine.interface';
 class ScrapData {
   public getWinesDataFromVivino = async (name: string): Promise<Wine[]> => {
     try {
-      const browser: Browser = await puppeteer.launch({ headless: true });
+      const browser: Browser = await puppeteer.launch({ headless: false });
       const page: Page = await browser.newPage();
 
       // setting user agent because puppeteer fails when setting headerless true
@@ -20,6 +20,10 @@ class ScrapData {
 
       await page.goto(`${VIVINO_SEARCH_URL}?q=${name ? name : '*'}`, { waitUntil: 'load', timeout: 0 });
       await page.waitForSelector('div.search-page__container');
+      await page.click('.simpleLabel__selectedKey--11QuD');
+      await page.click('.shipToDropdown__list--1_3yJ li:last-child a');
+      await page.waitForNavigation({ waitUntil: 'networkidle0' });
+      await page.waitForSelector('.navigationItem__labelContainer--21d49');
 
       const list: Wine[] = await page.evaluate(() => {
         const wineCards = Array.from(document.querySelectorAll(`div.search-page__container .card`));
