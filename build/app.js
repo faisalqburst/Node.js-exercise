@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importDefault(require("express"));
-const helmet_1 = __importDefault(require("helmet"));
 const hpp_1 = __importDefault(require("hpp"));
 const morgan_1 = __importDefault(require("morgan"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
@@ -33,7 +32,6 @@ class App {
     initializeMiddlewares() {
         if (this.env) {
             this.app.use(hpp_1.default());
-            this.app.use(helmet_1.default());
             this.app.use(morgan_1.default('combined'));
             this.app.use(cors_1.default({ origin: 'your.domain.com', credentials: true }));
         }

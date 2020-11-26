@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-class IndexController {
+class WineController {
     constructor() {
         this.index = (req, res, next) => {
             try {
-                res.status(200).send("API Working");
+                res.status(200).send("Wine API Working");
             }
             catch (error) {
                 next(error);
@@ -12,5 +12,5 @@ class IndexController {
         };
     }
 }
-exports.default = IndexController;
-//# sourceMappingURL=index.controller.js.map
+exports.default = WineController;
+//# sourceMappingURL=wine.controller.js.map

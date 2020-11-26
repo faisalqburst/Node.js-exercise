@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 
-class IndexController {
+class WineController {
   public index = (req: Request, res: Response, next: NextFunction): void => {
     try {
-      res.status(200).send('API Working');
+      res.status(200).send('Wine API Working');
     } catch (error) {
       next(error);
     }
   };
 }
 
-export default IndexController;
+export default WineController;

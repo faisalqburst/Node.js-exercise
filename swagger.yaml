@@ -1,0 +1,26 @@
+tags:
+- name: wines
+  description: Wines API 
+
+paths:
+# [GET] wines
+  /wines:
+    get:
+      tags:
+      - wines
+      summary: API to get list of wine
+      parameters:
+      - name: name
+        in: path
+        description: Wine name search key
+        required: true
+        type: string
+      responses:
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+schemes:
+ - https
+ - http
