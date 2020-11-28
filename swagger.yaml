@@ -10,9 +10,33 @@ paths:
         - wines
       summary: API to get list of wine
       parameters:
-        - name: name
+        - name: grapes
           in: query
-          description: Wine name search key
+          description: Grape names (Eg: Malbec,Merlot ..), Multiple names can be added separating by a comma 
+          type: string
+        - name: wineStyles
+          in: query
+          description: Wine styles (Eg: Argentinian Malbec,Spanish Red ..), Multiple wine styles can be added separating by a comma 
+          type: string
+        - name: foodPairings
+          in: query
+          description: Food pairings (Eg: Poultry, Veal ..), Multiple food pairings can be added separating by a comma 
+          type: string
+         - name: countryCodes
+          in: query
+          description: Country codes (Eg: in, us ..), Multiple country codes can be added separating by a comma 
+          type: string
+        - name: regions
+          in: query
+          description: (Eg: Toscana, Piemonte ..), Multiple country codes can be added separating by a comma 
+          type: string
+        - name: orderBy
+          in: query
+          description: (Eg: discount_percent, ratings_average, price, ratings_count)
+          type: string
+        - name: order
+          in: query
+          description: (Eg: asc, desc)
           type: string
         - name: minPrice
           in: query
@@ -25,10 +49,6 @@ paths:
         - name: minRating
           in: query
           description: Minimum rating of wine
-          type: string
-        - name: maxRating
-          in: query
-          description: Maximum rating of wine
           type: string
         - name: minNoRatings
           in: query

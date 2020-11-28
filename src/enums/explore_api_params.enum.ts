@@ -1,0 +1,17 @@
+export enum EXPLORE_API_PARAMS {
+  country_code = 'country_code',
+  currency_code = 'currency_code',
+  grape_filter = 'grape_filter',
+  order_by = 'order_by',
+  order = 'order',
+  grape_ids = 'grape_ids[]',
+  wine_style_ids = 'wine_style_ids[]',
+  food_ids = 'food_ids[]',
+  min_rating = 'min_rating',
+  price_range_min = 'price_range_min',
+  price_range_max = 'price_range_max',
+  country_codes = 'country_codes[]',
+  region_ids = 'region_ids[]',
+  wine_type_ids = 'wine_type_ids[]',
+  page = 'page',
+}
