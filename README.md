@@ -47,22 +47,18 @@ Response will be in the format
         discountPercent: number
     }
 ]
+```
 
 Or if we need to run it on the browser, follow the below command.
 
 ```
-
 npm run start dev
-
 ```
 
 To test the application, please run the following command.
 
 ```
-
 npm run test
-
 ```
 
 The application has integration with swagger. To get the swagger document, please go to http://localhost:3000/api-docs/#/
-```
