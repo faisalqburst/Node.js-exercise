@@ -57,7 +57,7 @@ class ScrapData {
     return url;
   };
 
-  mapWinesToWineObjects(response: []): Wine[] {
+  mapWinesToWineObjects(response: any = []): Wine[] {
     return response.map((wine: any) => {
       return {
         title: wine?.vintage?.name,
@@ -75,45 +75,45 @@ class ScrapData {
     });
   }
 
-  storeGrapes = async (page: Page): Promise<void> => {
+  getGrapes = async (page: Page): Promise<Grape[]> => {
     const grapesResponse = await page.evaluate(async apiUrl => {
       const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
       return fetch(`${apiUrl}?cache_key=${cacheKey}`).then((res: any) => {
         return res.text().then((r: any) => JSON.parse(r));
       });
     }, VIVINO_GRAPES_API);
-    this.grapes = <Grape[]>grapesResponse['grapes'];
+    return <Grape[]>grapesResponse?.grapes;
   };
 
-  storeWineStyles = async (page: Page): Promise<void> => {
+  getWineStyles = async (page: Page): Promise<WineStyle[]> => {
     const wineStylesResponse = await page.evaluate(async apiUrl => {
       const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
       return fetch(`${apiUrl}?cache_key=${cacheKey}`).then((res: any) => {
         return res.text().then((r: any) => JSON.parse(r));
       });
     }, VIVINO_WINE_STYLES_API);
-    this.wineStyles = wineStylesResponse['wine_styles'];
+    return wineStylesResponse?.wine_styles;
   };
 
-  storeFoods = async (page: Page): Promise<void> => {
+  getFoods = async (page: Page): Promise<Food[]> => {
     const wineStylesResponse = await page.evaluate(async apiUrl => {
       const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
       return fetch(`${apiUrl}?cache_key=${cacheKey}`).then((res: any) => {
         return res.text().then((r: any) => JSON.parse(r));
       });
     }, VIVINO_FOODS_API);
-    this.foods = wineStylesResponse['foods'];
+    return wineStylesResponse?.foods;
   };
 
   getAllWineListResponse = async (page: Page, wineParams: WineParams): Promise<Wine[]> => {
     const winesList: Wine[] = [];
     const firstPageResponse = await this.getWinesListResponsePerPage(page, 1, wineParams);
-    const totalRecords = firstPageResponse['records_matched'];
-    winesList.push(...this.mapWinesToWineObjects(firstPageResponse['matches']));
+    const totalRecords = firstPageResponse?.records_matched;
+    winesList.push(...this.mapWinesToWineObjects(firstPageResponse?.matches));
     const totalPagesToFetch = Math.ceil(totalRecords / WINES_PER_PAGE);
     for (let pageIndex = 2; pageIndex <= totalPagesToFetch; pageIndex++) {
       const response = await this.getWinesListResponsePerPage(page, pageIndex, wineParams);
-      winesList.push(...this.mapWinesToWineObjects(response['matches']));
+      winesList.push(...this.mapWinesToWineObjects(response?.matches));
     }
     return winesList;
   };
@@ -125,7 +125,7 @@ class ScrapData {
         return res.text().then((r: any) => JSON.parse(r));
       });
     }, url);
-    return grapesResponse['explore_vintage'];
+    return grapesResponse?.explore_vintage;
   };
 
   public getWinesDataFromVivino = async (wineParams: WineParams): Promise<Wine[]> => {
@@ -146,9 +146,9 @@ class ScrapData {
       await page.click('.simpleLabel__selectedKey--11QuD');
       await page.click('.shipToDropdown__list--1_3yJ li:last-child a');
       await page.waitForNavigation({ waitUntil: 'networkidle0' });
-      await this.storeGrapes(page);
-      await this.storeWineStyles(page);
-      await this.storeFoods(page);
+      this.grapes = await this.getGrapes(page);
+      this.wineStyles = await this.getWineStyles(page);
+      this.foods = await this.getFoods(page);
       const winesListResponse = await this.getAllWineListResponse(page, wineParams);
       await browser.close();
       return winesListResponse;

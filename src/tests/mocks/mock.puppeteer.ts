@@ -1,5 +1,4 @@
 import { Browser, Page } from 'puppeteer';
-import { WINES } from '../data/wines/wines';
 
 export const stubPage = ({
   setRequestInterception() {
@@ -15,7 +14,13 @@ export const stubPage = ({
     return Promise.resolve();
   },
   evaluate() {
-    return Promise.resolve(WINES);
+    return Promise.resolve();
+  },
+  waitForNavigation() {
+    return Promise.resolve();
+  },
+  click() {
+    return Promise.resolve();
   },
   goto(url: string) {
     console.log(url);

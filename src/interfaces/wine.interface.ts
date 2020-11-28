@@ -1,11 +1,11 @@
 export interface Wine {
   title: string;
-  vintage: string;
+  vintage: number | string;
   region: string;
   country: string;
   averageRating: number;
   numberOfRatings: number;
-  averagePrice: string;
+  averagePrice: number;
   currency: string;
   imageUrl: string;
   bottleVolume: number;
