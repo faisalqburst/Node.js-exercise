@@ -85,6 +85,14 @@ class ScrapData {
     return <Grape[]>grapesResponse?.grapes;
   };
 
+  isGrapeIsValid = (grapes: string): boolean => {
+    const grapesQuery = this.appendParam(grapes, EXPLORE_API_PARAMS.grape_ids, this.grapes);
+    if (grapesQuery.indexOf(EXPLORE_API_PARAMS.grape_ids) > -1) {
+      return true;
+    }
+    return false;
+  };
+
   getWineStyles = async (page: Page): Promise<WineStyle[]> => {
     const wineStylesResponse = await page.evaluate(async apiUrl => {
       const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
@@ -111,6 +119,8 @@ class ScrapData {
     const totalRecords = firstPageResponse?.records_matched;
     winesList.push(...this.mapWinesToWineObjects(firstPageResponse?.matches));
     const totalPagesToFetch = Math.ceil(totalRecords / WINES_PER_PAGE);
+    console.log('total records', totalRecords);
+    console.log('total pages to fetch', totalPagesToFetch);
     for (let pageIndex = 2; pageIndex <= totalPagesToFetch; pageIndex++) {
       const response = await this.getWinesListResponsePerPage(page, pageIndex, wineParams);
       winesList.push(...this.mapWinesToWineObjects(response?.matches));
@@ -147,6 +157,10 @@ class ScrapData {
       await page.click('.shipToDropdown__list--1_3yJ li:last-child a');
       await page.waitForNavigation({ waitUntil: 'networkidle0' });
       this.grapes = await this.getGrapes(page);
+      if (!this.isGrapeIsValid(wineParams.grapes)) {
+        await browser.close();
+        throw 'Grape is invalid';
+      }
       this.wineStyles = await this.getWineStyles(page);
       this.foods = await this.getFoods(page);
       const winesListResponse = await this.getAllWineListResponse(page, wineParams);

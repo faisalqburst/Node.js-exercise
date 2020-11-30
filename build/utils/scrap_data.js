@@ -55,42 +55,51 @@ class ScrapData {
             }
             return url;
         };
-        this.storeGrapes = async (page) => {
+        this.getGrapes = async (page) => {
             const grapesResponse = await page.evaluate(async (apiUrl) => {
                 const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
                 return fetch(`${apiUrl}?cache_key=${cacheKey}`).then((res) => {
                     return res.text().then((r) => JSON.parse(r));
                 });
             }, const_1.VIVINO_GRAPES_API);
-            this.grapes = grapesResponse['grapes'];
+            return grapesResponse === null || grapesResponse === void 0 ? void 0 : grapesResponse.grapes;
         };
-        this.storeWineStyles = async (page) => {
+        this.isGrapeIsValid = (grapes) => {
+            const grapesQuery = this.appendParam(grapes, explore_api_params_enum_1.EXPLORE_API_PARAMS.grape_ids, this.grapes);
+            if (grapesQuery.indexOf(explore_api_params_enum_1.EXPLORE_API_PARAMS.grape_ids) > -1) {
+                return true;
+            }
+            return false;
+        };
+        this.getWineStyles = async (page) => {
             const wineStylesResponse = await page.evaluate(async (apiUrl) => {
                 const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
                 return fetch(`${apiUrl}?cache_key=${cacheKey}`).then((res) => {
                     return res.text().then((r) => JSON.parse(r));
                 });
             }, const_1.VIVINO_WINE_STYLES_API);
-            this.wineStyles = wineStylesResponse['wine_styles'];
+            return wineStylesResponse === null || wineStylesResponse === void 0 ? void 0 : wineStylesResponse.wine_styles;
         };
-        this.storeFoods = async (page) => {
+        this.getFoods = async (page) => {
             const wineStylesResponse = await page.evaluate(async (apiUrl) => {
                 const cacheKey = localStorage.getItem('local_cache_key') + window['vivinoCacheKey'];
                 return fetch(`${apiUrl}?cache_key=${cacheKey}`).then((res) => {
                     return res.text().then((r) => JSON.parse(r));
                 });
             }, const_1.VIVINO_FOODS_API);
-            this.foods = wineStylesResponse['foods'];
+            return wineStylesResponse === null || wineStylesResponse === void 0 ? void 0 : wineStylesResponse.foods;
         };
         this.getAllWineListResponse = async (page, wineParams) => {
             const winesList = [];
             const firstPageResponse = await this.getWinesListResponsePerPage(page, 1, wineParams);
-            const totalRecords = firstPageResponse['records_matched'];
-            winesList.push(...this.mapWinesToWineObjects(firstPageResponse['matches']));
+            const totalRecords = firstPageResponse === null || firstPageResponse === void 0 ? void 0 : firstPageResponse.records_matched;
+            winesList.push(...this.mapWinesToWineObjects(firstPageResponse === null || firstPageResponse === void 0 ? void 0 : firstPageResponse.matches));
             const totalPagesToFetch = Math.ceil(totalRecords / const_1.WINES_PER_PAGE);
+            console.log('total records', totalRecords);
+            console.log('total pages to fetch', totalPagesToFetch);
             for (let pageIndex = 2; pageIndex <= totalPagesToFetch; pageIndex++) {
                 const response = await this.getWinesListResponsePerPage(page, pageIndex, wineParams);
-                winesList.push(...this.mapWinesToWineObjects(response['matches']));
+                winesList.push(...this.mapWinesToWineObjects(response === null || response === void 0 ? void 0 : response.matches));
             }
             return winesList;
         };
@@ -101,7 +110,7 @@ class ScrapData {
                     return res.text().then((r) => JSON.parse(r));
                 });
             }, url);
-            return grapesResponse['explore_vintage'];
+            return grapesResponse === null || grapesResponse === void 0 ? void 0 : grapesResponse.explore_vintage;
         };
         this.getWinesDataFromVivino = async (wineParams) => {
             try {
@@ -122,9 +131,13 @@ class ScrapData {
                 await page.click('.simpleLabel__selectedKey--11QuD');
                 await page.click('.shipToDropdown__list--1_3yJ li:last-child a');
                 await page.waitForNavigation({ waitUntil: 'networkidle0' });
-                await this.storeGrapes(page);
-                await this.storeWineStyles(page);
-                await this.storeFoods(page);
+                this.grapes = await this.getGrapes(page);
+                if (!this.isGrapeIsValid(wineParams.grapes)) {
+                    await browser.close();
+                    throw 'Grape is invalid';
+                }
+                this.wineStyles = await this.getWineStyles(page);
+                this.foods = await this.getFoods(page);
                 const winesListResponse = await this.getAllWineListResponse(page, wineParams);
                 await browser.close();
                 return winesListResponse;
@@ -135,7 +148,7 @@ class ScrapData {
             }
         };
     }
-    mapWinesToWineObjects(response) {
+    mapWinesToWineObjects(response = []) {
         return response.map((wine) => {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
             return {
